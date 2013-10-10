@@ -150,7 +150,9 @@ class TwoDimensionalTest(unittest.TestCase):
         self.assertAlmostEqual(x2.primal, 1.5)
         # Now go for the gusto.  Change column constraint, force infeasibility.
         x2.bounds = 3, None # Instead of x2<=2, must now be >=3!  Tee hee.
-        self.assertEqual('nofeas', lp.interior())
+
+        self.assertEqual(None, lp.interior())
+        self.assertEqual('nofeas', lp.status)
         # By removing the first row constraint, we allow opt point (-1,4).
         del lp.rows[0]
         lp.std_basis()
@@ -328,7 +330,7 @@ class MIPCallbackTest(Runner, unittest.TestCase):
         if retval != None: return None
         if lp.status != 'opt': return None
         return [col.value > 0.99 for col in lp.cols[::2]]
-    
+
     @classmethod
     def verify(self, expression, assignment):
         """Get the truth of an expression given a variable truth assignment.
@@ -383,7 +385,7 @@ class MIPCallbackTest(Runner, unittest.TestCase):
             def default(self, tree):
                 reasons.add(tree.reason)
         assign = self.solve_sat(callback=Callback())
-        
+
         # We should have some items.
         self.assertNotEqual(len(reasons), 0)
         # The reasons should not include anything other than those
@@ -474,7 +476,7 @@ class MIPCallbackTest(Runner, unittest.TestCase):
                     n = n.next
                 actives = [n.subproblem for n in tree]
                 testobj.assertEqual(actives, explicit_actives)
-                
+
 
 # Callbacks did not exist prior to 4.20 anyway.
 if env.version<(4,20): del MIPCallbackTest

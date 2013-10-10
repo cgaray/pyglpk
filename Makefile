@@ -1,10 +1,10 @@
-VERSION := 0.3
+VERSION := 5.1.1
 PYTHON := python
 MODNAME := glpk
 ARCHIVE := py$(MODNAME)-$(VERSION)
 CURDIR := $(shell pwd)
 
-.PHONY : all test install clean cleaner archive syncto syncfrom valgrinder docs
+.PHONY : all test install clean cleaner archive valgrinder docs
 
 glpk.so: all
 
@@ -48,16 +48,6 @@ RELEASE.txt: html/release.html
 	links -dump $< > $@
 
 docs: html/glpk.html README.txt RELEASE.txt
-
-# Functions for remote synchronization of this project, mostly for
-# backup purposes.
-
-REMOTE := tomf@kodiak.cs.cornell.edu:glpk/
-
-syncto:
-	rsync -rvtu --exclude 'build' --exclude '*~' --exclude "locals" --exclude "glpk" * "$(REMOTE)"
-syncfrom:
-	rsync -rvtu "$(REMOTE)[^b]*" .
 
 valgrinder2:
 	valgrind --tool=memcheck --leak-check=yes --db-attach=yes --show-reachable=yes --suppressions=valgrind-python.supp $(PYTHON) -i test2.py

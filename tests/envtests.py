@@ -39,15 +39,16 @@ class MemoryTestCase(Runner, unittest.TestCase):
         self.assertEqual(env.bytes, bytes_first)
 
     def testMemLimitNegative(self):
-        """Test that negative memory limits are not permitted."""
+        """Test that memory limits less than 1 are not permitted."""
         if env.version<(4,19): return
         self.assertRaises(ValueError, self.runner, 'env.mem_limit=-1')
         self.assertRaises(ValueError, self.runner, 'env.mem_limit=-500')
+        self.assertRaises(ValueError, self.runner, 'env.mem_limit=0')
 
     def testMemLimit(self):
         """Test setting the memory limit."""
         if env.version<(4,19): return
-        limits = [5,0,10,None,2000]
+        limits = [5,1,10,None,2000]
         self.assertEqual(env.mem_limit, None)
         for limit in limits:
             env.mem_limit = limit
