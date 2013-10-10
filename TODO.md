@@ -137,4 +137,68 @@ Changed a couple of the data reading and writing techniques, but frankly I don't
 
 # Version 5
 ## Version 5.1
-* 5.1.1 Update to post glpk-4.47 api
+* 5.1.1 Update to post glpk-4.47 api.  Remove support for glpk versions before 4.47 for cleaner code.
+
+I'm currently seeing the following errors on trying to compile the module:
+
+> src/environment.c:75:18: error: unknown type name ‘glp_long’
+> #define GLP_LONG glp_long
+>                  ^
+>src/environment.c:80:26: note: in expansion of macro ‘GLP_LONG’
+> static PyObject* long2py(GLP_LONG l) {
+>                          ^
+>src/environment.c: In function ‘Environment_getbytes’:
+>src/environment.c:75:18: error: unknown type name ‘glp_long’
+> #define GLP_LONG glp_long
+>                  ^
+>src/environment.c:90:3: note: in expansion of macro ‘GLP_LONG’
+>   GLP_LONG b;
+>   ^
+>src/environment.c:91:3: warning: passing argument 3 of ‘glp_mem_usage’ from incompatible pointer type [enabled by default]
+>   glp_mem_usage(NULL, NULL, &b, NULL);
+>   ^
+>In file included from src/environment.h:24:0,
+>                 from src/environment.c:20:
+>/usr/local/include/glpk.h:823:6: note: expected ‘size_t *’ but argument is of type ‘int *’
+> void glp_mem_usage(int *count, int *cpeak, size_t *total,
+>      ^
+>src/environment.c:92:3: warning: implicit declaration of function ‘long2py’ [-Wimplicit-function-declaration]
+>   return long2py(b);
+>   ^
+>src/environment.c:92:3: warning: return makes pointer from integer without a cast [enabled by default]
+>src/environment.c: In function ‘Environment_getbytes_peak’:
+>src/environment.c:75:18: error: unknown type name ‘glp_long’
+> #define GLP_LONG glp_long
+>                  ^
+>src/environment.c:97:3: note: in expansion of macro ‘GLP_LONG’
+>   GLP_LONG b;
+>   ^
+>src/environment.c:98:3: warning: passing argument 4 of ‘glp_mem_usage’ from incompatible pointer type [enabled by default]
+>   glp_mem_usage(NULL, NULL, NULL, &b);
+>   ^
+>In file included from src/environment.h:24:0,
+>                 from src/environment.c:20:
+>/usr/local/include/glpk.h:823:6: note: expected ‘size_t *’ but argument is of type ‘int *’
+> void glp_mem_usage(int *count, int *cpeak, size_t *total,
+>      ^
+>src/environment.c:99:3: warning: return makes pointer from integer without a cast [enabled by default]
+>   return long2py(b);
+>   ^
+>error: command 'x86_64-linux-gnu-gcc' failed with exit status 1
+>make: *** [all] Error 1
+
+These errors appear to be caused by a change in the API in glpk-4.48.  The changelog for 4.48 reads says
+
+> * glpk.h
+>   glp_prob declaration changed (now it is incomplete struct);
+>   glp_tree declaration changed (now it is incomplete struct);
+>   glp_tran declaration changed (now it is incomplete struct);
+>   glp_long declaration removed;
+>   glp_time declaration removed;
+>   glp_difftime removed from API;
+>   glp_data removed from API;
+>   glp_sdf_* removed from API;
+>   glp_mem_usage declaration changed (glp_long -> size_t);
+>   glp_realloc declaration added (not documented yet).
+
+1) change glp_mem_usage to use size_t rather than glp_long and return with PyLong_FromSize_t
