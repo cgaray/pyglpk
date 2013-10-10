@@ -2,7 +2,12 @@
 
    Copyright (c) 2007, 2008, Thomas W. Finley
 
-PyGLPK 0.3
+# PyGPLK 5
+## PyGLPK 5.1
+October 10, 2013
+* PyGLPK has been updated to build againse GLPK 4.47
+
+## PyGLPK 0.3
 
    September 22 2008
      * The PyGLPK has been updated to build against GLPK 4.31, and has been
@@ -26,7 +31,7 @@ PyGLPK 0.3
        you may edit useparams = False to be useparams = True.)
      * It is now possible to manually change the scaling of rows and columns.
 
-PyGLPK 0.2
+## PyGLPK 0.2
 
    July 9 2007
      * Added weak reference support to all the PyGLPK objects.
