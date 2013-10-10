@@ -208,7 +208,16 @@ I glp_mem_usage to use size_t rather than glp_long and return with PyLong_FromSi
 >     self.assertEqual('nofeas', lp.interior())
 > AssertionError: 'nofeas' != None
 
-It looks like the interior point problem definition (glp_interior) has changed and so the error codes returned are different.  I'm changing the error code translation to reflect this.
+lp.interior() should return None.  Changed this to store status then assert status is 'nofeas'.
+
+Now, I see
+
+> Test setting the memory limit. ... glp_mem_limit: limit = 0; invalid parameter
+> Error detected in file glpenv05.c at line 216
+> make: *** [test] Aborted
+
+Looks like the glp_mem_limit must be greater than 1.  Changing this check in environment.c.
+
 
 
 
