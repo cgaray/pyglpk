@@ -201,4 +201,14 @@ These errors appear to be caused by a change in the API in glpk-4.48.  The chang
 >   glp_mem_usage declaration changed (glp_long -> size_t);
 >   glp_realloc declaration added (not documented yet).
 
-1) change glp_mem_usage to use size_t rather than glp_long and return with PyLong_FromSize_t
+I glp_mem_usage to use size_t rather than glp_long and return with PyLong_FromSize_t and it compiles properly.  Running make test yields the following error however:
+
+> Traceback (most recent call last):
+>   File "/home/cgaray/research/pyglpk-0.3/tests/solvetests.py", line 153, in   testEvolvingConstraintsInterior
+>     self.assertEqual('nofeas', lp.interior())
+> AssertionError: 'nofeas' != None
+
+It looks like the interior point problem definition (glp_interior) has changed and so the error codes returned are different.  I'm changing the error code translation to reflect this.
+
+
+

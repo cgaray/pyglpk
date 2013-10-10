@@ -818,6 +818,7 @@ static PyObject* glpstatus2string(int status) {
   case GLP_NOFEAS: return PyString_FromString("nofeas");
   case GLP_UNBND:  return PyString_FromString("unbnd");
   case GLP_UNDEF:  return PyString_FromString("undef");
+
   default:         return PyString_FromString("unknown?");
   }
 }
@@ -1111,7 +1112,6 @@ static PyMethodDef LPX_methods[] = {
    "Alternately, on failure it will return one of the following\n"
    "strings to indicate failure type.\n\n"
    "fault   -- There are no rows or columns.\n"
-   "nofeas  -- The problem has no feasible (primal/dual) solution.\n"
    "noconv  -- Very slow convergence or divergence.\n"
    "itlim   -- Iteration limited exceeded.\n"
    "instab  -- Numerical instability when solving Newtonian system." },
