@@ -71,32 +71,17 @@ static PyObject* Environment_getblocks_peak(EnvironmentObject *self,
   return PyInt_FromLong(cpeak);
 }
 
-#if GLPK_VERSION(4,28)
-#define GLP_LONG glp_long
-#else
-#define GLP_LONG glp_ulong
-#endif
-
-static PyObject* long2py(GLP_LONG l) {
-  if ((l.hi==0 && l.lo>=0) || (l.hi==-1 && l.lo<0))
-    return PyInt_FromLong(l.lo);
-  PY_LONG_LONG ll = l.hi;
-  ll <<= 32;
-  ll |= (unsigned int)l.lo;
-  return PyLong_FromLongLong(ll);
-}
-
 static PyObject* Environment_getbytes(EnvironmentObject *self,void *closure) {
-  GLP_LONG b;
+  size_t b;
   glp_mem_usage(NULL, NULL, &b, NULL);
-  return long2py(b);
+  return PyLong_FromSize_t(b);
 }
 
 static PyObject* Environment_getbytes_peak(EnvironmentObject *self,
 					   void *closure) {
-  GLP_LONG b;
+  size_t b;
   glp_mem_usage(NULL, NULL, NULL, &b);
-  return long2py(b);
+  return PyLong_FromSize_t(b);
 }
 
 static PyObject* Environment_getmemlimit(EnvironmentObject *self,
@@ -114,8 +99,8 @@ static int Environment_setmemlimit(EnvironmentObject *self, PyObject *value,
     self->mem_limit = -1;
   } else if (PyInt_Check(value)) {
     limit=PyInt_AS_LONG(value);
-    if (limit<0) {
-      PyErr_SetString(PyExc_ValueError, "mem_limit must be non-negative");
+    if (limit<1) {
+      PyErr_SetString(PyExc_ValueError, "mem_limit must be greater than 1");
       return -1;
     }
     self->mem_limit = limit;
