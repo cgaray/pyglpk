@@ -1,0 +1,184 @@
+Unpacking /home/cgaray/Downloads/pyglpk-0.3
+  Running setup.py egg_info for package from file:///home/cgaray/Downloads/pyglpk-0.3
+    
+Installing collected packages: glpk
+  Running setup.py install for glpk
+    building 'glpk' extension
+    x86_64-linux-gnu-gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -I/usr/local/include -Isrc -I/usr/include/python2.7 -c src/glpk.c -o build/temp.linux-x86_64-2.7/src/glpk.o
+    x86_64-linux-gnu-gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -I/usr/local/include -Isrc -I/usr/include/python2.7 -c src/lp.c -o build/temp.linux-x86_64-2.7/src/lp.o
+    x86_64-linux-gnu-gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -I/usr/local/include -Isrc -I/usr/include/python2.7 -c src/barcol.c -o build/temp.linux-x86_64-2.7/src/barcol.o
+    x86_64-linux-gnu-gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -I/usr/local/include -Isrc -I/usr/include/python2.7 -c src/bar.c -o build/temp.linux-x86_64-2.7/src/bar.o
+    x86_64-linux-gnu-gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -I/usr/local/include -Isrc -I/usr/include/python2.7 -c src/obj.c -o build/temp.linux-x86_64-2.7/src/obj.o
+    x86_64-linux-gnu-gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -I/usr/local/include -Isrc -I/usr/include/python2.7 -c src/util.c -o build/temp.linux-x86_64-2.7/src/util.o
+    x86_64-linux-gnu-gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -I/usr/local/include -Isrc -I/usr/include/python2.7 -c src/kkt.c -o build/temp.linux-x86_64-2.7/src/kkt.o
+    x86_64-linux-gnu-gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -I/usr/local/include -Isrc -I/usr/include/python2.7 -c src/tree.c -o build/temp.linux-x86_64-2.7/src/tree.o
+    x86_64-linux-gnu-gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -I/usr/local/include -Isrc -I/usr/include/python2.7 -c src/environment.c -o build/temp.linux-x86_64-2.7/src/environment.o
+    src/environment.c:75:18: error: unknown type name ‘glp_long’
+     #define GLP_LONG glp_long
+                      ^
+    src/environment.c:80:26: note: in expansion of macro ‘GLP_LONG’
+     static PyObject* long2py(GLP_LONG l) {
+                              ^
+    src/environment.c: In function ‘Environment_getbytes’:
+    src/environment.c:75:18: error: unknown type name ‘glp_long’
+     #define GLP_LONG glp_long
+                      ^
+    src/environment.c:90:3: note: in expansion of macro ‘GLP_LONG’
+       GLP_LONG b;
+       ^
+    src/environment.c:91:3: warning: passing argument 3 of ‘glp_mem_usage’ from incompatible pointer type [enabled by default]
+       glp_mem_usage(NULL, NULL, &b, NULL);
+       ^
+    In file included from src/environment.h:24:0,
+                     from src/environment.c:20:
+    /usr/local/include/glpk.h:823:6: note: expected ‘size_t *’ but argument is of type ‘int *’
+     void glp_mem_usage(int *count, int *cpeak, size_t *total,
+          ^
+    src/environment.c:92:3: warning: implicit declaration of function ‘long2py’ [-Wimplicit-function-declaration]
+       return long2py(b);
+       ^
+    src/environment.c:92:3: warning: return makes pointer from integer without a cast [enabled by default]
+    src/environment.c: In function ‘Environment_getbytes_peak’:
+    src/environment.c:75:18: error: unknown type name ‘glp_long’
+     #define GLP_LONG glp_long
+                      ^
+    src/environment.c:97:3: note: in expansion of macro ‘GLP_LONG’
+       GLP_LONG b;
+       ^
+    src/environment.c:98:3: warning: passing argument 4 of ‘glp_mem_usage’ from incompatible pointer type [enabled by default]
+       glp_mem_usage(NULL, NULL, NULL, &b);
+       ^
+    In file included from src/environment.h:24:0,
+                     from src/environment.c:20:
+    /usr/local/include/glpk.h:823:6: note: expected ‘size_t *’ but argument is of type ‘int *’
+     void glp_mem_usage(int *count, int *cpeak, size_t *total,
+          ^
+    src/environment.c:99:3: warning: return makes pointer from integer without a cast [enabled by default]
+       return long2py(b);
+       ^
+    error: command 'x86_64-linux-gnu-gcc' failed with exit status 1
+    Complete output from command /usr/bin/python -c "import setuptools;__file__='/tmp/pip-zrCF49-build/setup.py';exec(compile(open(__file__).read().replace('\r\n', '\n'), __file__, 'exec'))" install --record /tmp/pip-LOakIJ-record/install-record.txt --single-version-externally-managed:
+    running install
+
+running build
+
+running build_ext
+
+building 'glpk' extension
+
+creating build
+
+creating build/temp.linux-x86_64-2.7
+
+creating build/temp.linux-x86_64-2.7/src
+
+x86_64-linux-gnu-gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -I/usr/local/include -Isrc -I/usr/include/python2.7 -c src/glpk.c -o build/temp.linux-x86_64-2.7/src/glpk.o
+
+x86_64-linux-gnu-gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -I/usr/local/include -Isrc -I/usr/include/python2.7 -c src/lp.c -o build/temp.linux-x86_64-2.7/src/lp.o
+
+x86_64-linux-gnu-gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -I/usr/local/include -Isrc -I/usr/include/python2.7 -c src/barcol.c -o build/temp.linux-x86_64-2.7/src/barcol.o
+
+x86_64-linux-gnu-gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -I/usr/local/include -Isrc -I/usr/include/python2.7 -c src/bar.c -o build/temp.linux-x86_64-2.7/src/bar.o
+
+x86_64-linux-gnu-gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -I/usr/local/include -Isrc -I/usr/include/python2.7 -c src/obj.c -o build/temp.linux-x86_64-2.7/src/obj.o
+
+x86_64-linux-gnu-gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -I/usr/local/include -Isrc -I/usr/include/python2.7 -c src/util.c -o build/temp.linux-x86_64-2.7/src/util.o
+
+x86_64-linux-gnu-gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -I/usr/local/include -Isrc -I/usr/include/python2.7 -c src/kkt.c -o build/temp.linux-x86_64-2.7/src/kkt.o
+
+x86_64-linux-gnu-gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -I/usr/local/include -Isrc -I/usr/include/python2.7 -c src/tree.c -o build/temp.linux-x86_64-2.7/src/tree.o
+
+x86_64-linux-gnu-gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -I/usr/local/include -Isrc -I/usr/include/python2.7 -c src/environment.c -o build/temp.linux-x86_64-2.7/src/environment.o
+
+src/environment.c:75:18: error: unknown type name ‘glp_long’
+
+ #define GLP_LONG glp_long
+
+                  ^
+
+src/environment.c:80:26: note: in expansion of macro ‘GLP_LONG’
+
+ static PyObject* long2py(GLP_LONG l) {
+
+                          ^
+
+src/environment.c: In function ‘Environment_getbytes’:
+
+src/environment.c:75:18: error: unknown type name ‘glp_long’
+
+ #define GLP_LONG glp_long
+
+                  ^
+
+src/environment.c:90:3: note: in expansion of macro ‘GLP_LONG’
+
+   GLP_LONG b;
+
+   ^
+
+src/environment.c:91:3: warning: passing argument 3 of ‘glp_mem_usage’ from incompatible pointer type [enabled by default]
+
+   glp_mem_usage(NULL, NULL, &b, NULL);
+
+   ^
+
+In file included from src/environment.h:24:0,
+
+                 from src/environment.c:20:
+
+/usr/local/include/glpk.h:823:6: note: expected ‘size_t *’ but argument is of type ‘int *’
+
+ void glp_mem_usage(int *count, int *cpeak, size_t *total,
+
+      ^
+
+src/environment.c:92:3: warning: implicit declaration of function ‘long2py’ [-Wimplicit-function-declaration]
+
+   return long2py(b);
+
+   ^
+
+src/environment.c:92:3: warning: return makes pointer from integer without a cast [enabled by default]
+
+src/environment.c: In function ‘Environment_getbytes_peak’:
+
+src/environment.c:75:18: error: unknown type name ‘glp_long’
+
+ #define GLP_LONG glp_long
+
+                  ^
+
+src/environment.c:97:3: note: in expansion of macro ‘GLP_LONG’
+
+   GLP_LONG b;
+
+   ^
+
+src/environment.c:98:3: warning: passing argument 4 of ‘glp_mem_usage’ from incompatible pointer type [enabled by default]
+
+   glp_mem_usage(NULL, NULL, NULL, &b);
+
+   ^
+
+In file included from src/environment.h:24:0,
+
+                 from src/environment.c:20:
+
+/usr/local/include/glpk.h:823:6: note: expected ‘size_t *’ but argument is of type ‘int *’
+
+ void glp_mem_usage(int *count, int *cpeak, size_t *total,
+
+      ^
+
+src/environment.c:99:3: warning: return makes pointer from integer without a cast [enabled by default]
+
+   return long2py(b);
+
+   ^
+
+error: command 'x86_64-linux-gnu-gcc' failed with exit status 1
+
+----------------------------------------
+Cleaning up...
+Command /usr/bin/python -c "import setuptools;__file__='/tmp/pip-zrCF49-build/setup.py';exec(compile(open(__file__).read().replace('\r\n', '\n'), __file__, 'exec'))" install --record /tmp/pip-LOakIJ-record/install-record.txt --single-version-externally-managed failed with error code 1 in /tmp/pip-zrCF49-build
+Storing complete log in /home/cgaray/.pip/pip.log
