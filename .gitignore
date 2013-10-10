@@ -2,7 +2,7 @@
 
 # Temp files
 .#*
-#*
+*#
 
 # C extensions
 *.so
